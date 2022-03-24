@@ -171,21 +171,21 @@ def move():
 
     for point, course in ghosts:
         options = [ #Opciones de curso (direccion) para el fantasma
-            vector(5, 0), #Derecha
-            vector(-5, 0), #Izquierda
-            vector(0, 5), #Arriba
-            vector(0, -5), #Abajo
+            vector(8, 0), #Derecha
+            vector(-8, 0), #Izquierda
+            vector(0, 8), #Arriba
+            vector(0, -8), #Abajo
         ]
         distanciaX = pacman.x - point.x #Obtener la distancia entre el jugador y el fantasma
         distanciaY = pacman.y - point.y
-        if distanciaY >= abs(distanciaX) and valid(point + vector(0,5)): #Si hay distanccia en Y y es posible moverse, se acerca
-            point.move(vector(0,5))
-        elif distanciaY <= -abs(distanciaX) and valid(point + vector(0,-5)): #Si hay distanccia en Y y es posible moverse, se acerca
-            point.move(vector(0,-5))
-        elif distanciaX > abs(distanciaY) and valid(point + vector(5,0)): #Si hay distanccia en X y es posible moverse, se acerca
-            point.move(vector(5,0))
-        elif distanciaX < -abs(distanciaY) and valid(point + vector(-5,0)): #Si hay distanccia en X y es posible moverse, se acerca
-            point.move(vector(-5,0))
+        if distanciaY >= abs(distanciaX) and valid(point + vector(0,8)): #Si hay distanccia en Y y es posible moverse, se acerca
+            point.move(vector(0,8))
+        elif distanciaY <= -abs(distanciaX) and valid(point + vector(0,-8)): #Si hay distanccia en Y y es posible moverse, se acerca
+            point.move(vector(0,-8))
+        elif distanciaX > abs(distanciaY) and valid(point + vector(8,0)): #Si hay distanccia en X y es posible moverse, se acerca
+            point.move(vector(8,0))
+        elif distanciaX < -abs(distanciaY) and valid(point + vector(-8,0)): #Si hay distanccia en X y es posible moverse, se acerca
+            point.move(vector(-8,0))
         else: #En caso de que ninguna de las opciones anteriores se cumpla, evaluar posibles movimientos aleatorios
             course2 = choice(options) #Asignacion aleatoria de una direccion distinta a la actual
             if valid(point + course):
