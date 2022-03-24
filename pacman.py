@@ -1,15 +1,5 @@
-"""Pacman, classic arcade game.
-
-Exercises
-
-1. Change the board.
-2. Change the number of ghosts.
-3. Change where pacman starts.
-4. Make the ghosts faster/slower.
-5. Make the ghosts smarter.
-"""
-
 from random import choice
+from random import randint
 from turtle import *
 
 from freegames import floor, vector
@@ -131,18 +121,38 @@ def move():
     dot(20, 'yellow')
 
     for point, course in ghosts:
+        options = [ #Opciones de curso (direccion) para el fantasma
+            vector(5, 0), #Derecha
+            vector(-5, 0), #Izquierda
+            vector(0, 5), #Arriba
+            vector(0, -5), #Abajo
+        ]
+        course2 = choice(options) #Asignacion aleatoria de una direccion distinta a la actual
         if valid(point + course):
-            point.move(course)
+            while course2 == course or (abs(course.x) > 0 and abs(course.x) == abs(course2.x)) or (abs(course.y) > 0 and abs(course.y) == abs(course2.y)):
+                #Validacion de que la otra direccion no sea ni igual a la primera, ni opuesta a ésta (solo si aun esta avanzando)
+                course2 = choice(options) #Reasignacion
         else:
-            options = [
-                vector(5, 0),
-                vector(-5, 0),
-                vector(0, 5),
-                vector(0, -5),
-            ]
-            plan = choice(options)
-            course.x = plan.x
-            course.y = plan.y
+            while course2 == course:
+                #Validacion de que la otra direccion no sea igual a la primera (solo si ya ha chocado con una pared)
+                course2 = choice(options) #Reasignacion
+        a = randint(1,10) #Generacion de numero aleatorio entre 1 y 9, incluyendolos
+        if a > 5: #Seleccion de caminos: 1/2 de probabilidad de que verifique primero si se puede mover hacia adelante
+            if valid(point + course): #Validar que pueda seguir moviendose hacia adelante
+                point.move(course) #Moverse hacia adelante
+            else:
+                if valid(point + course2): #Validar que pueda moverse en la otra direccion
+                    course.x = course2.x #Establecer nueva direccion (x)
+                    course.y = course2.y #Establecer nueva direccion (y)
+                    point.move(course) #Moverse en la otra direccion
+        else: #Seleccion de caminos: 1/2 de probabilidad de que verifique primero si se puede mover hacia la otra direccion
+            if valid(point + course2): #Validar que pueda moverse en la otra direccion
+                course.x = course2.x #Establecer nueva direccion (x)
+                course.y = course2.y #Establecer nueva direccion (y)
+                point.move(course) #Moverse en la otra direccion
+            else:
+                if valid(point + course): #Validar que pueda seguir moviendose hacia adelante
+                    point.move(course) #Moverse hacia adelante
 
         up()
         goto(point.x + 10, point.y + 10)
