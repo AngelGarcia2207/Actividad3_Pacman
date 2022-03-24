@@ -7,13 +7,13 @@ from freegames import floor, vector
 state = {'score': 0}
 path = Turtle(visible=False)
 writer = Turtle(visible=False)
-aim = vector(5, 0)
+aim = vector(8, 0)
 pacman = vector(-40, -80)
 ghosts = [
-    [vector(-180, 160), vector(5, 0)],
-    [vector(-180, -160), vector(0, 5)],
-    [vector(100, 160), vector(0, -5)],
-    [vector(100, -160), vector(-5, 0)],
+    [vector(-180, 160), vector(8, 0)],
+    [vector(-180, -160), vector(0, 8)],
+    [vector(100, 160), vector(0, -8)],
+    [vector(100, -160), vector(-8, 0)],
 ]
 # fmt: off
 '''tiles = [
